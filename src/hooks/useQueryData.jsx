@@ -15,3 +15,5 @@ export const useQueryData = (key, path, params = "", enabled = true) => {
     enabled,
   });
 };
+
+export const useContactData = () => useQueryData(["contacts", "api/contacts"]);

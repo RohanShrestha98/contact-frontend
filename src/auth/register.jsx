@@ -1,40 +1,23 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "`react-router-dom`";
-import { useAuthMutation } from "../hooks/UseMutateData";
-import { useAuthContext } from "../context/authContext";
-import Cookies from "universal-cookie";
-import { encryptData } from "../utils/crypto";
+import { useAuthRegisterMutation } from "../hooks/UseMutateData";
 import Button from "../components/Button";
 import InputField from "../components/InputField";
 import { Link } from "react-router-dom";
 
-const Login = () => {
-  const { setAuth } = useAuthContext();
-  const authMutation = useAuthMutation();
+const Register = () => {
+  const authRegisterMutation = useAuthRegisterMutation();
   const navigate = useNavigate();
-  const cookies = new Cookies({ path: "/" });
 
-  const { register, handleSubmit, reset } = useForm({
+  const { register, handleSubmit } = useForm({
     mode: "onChange",
   });
   const onSubmitHandler = async (data) => {
     try {
-      const result = await authMutation.mutateAsync(["post", "", data]);
+      const result = await authRegisterMutation.mutateAsync(["post", "", data]);
       if (result?.success) {
-        console.log("Login success");
-        const userDetailsData = {
-          accessToken: result?.accessToken,
-          user: {
-            id: result?.data?.id,
-            email: result?.data?.email,
-            username: result?.data?.username || "",
-          },
-        };
-        setAuth(userDetailsData);
-        cookies.set("accessToken", encryptData(result?.accessToken));
-        cookies.set("userDetails", encryptData(userDetailsData));
-        reset();
-        navigate("/");
+        console.log("Register success");
+        navigate("/login");
       } else {
         console.log("error", result?.response?.data?.errors?.error.toString());
       }
@@ -52,7 +35,13 @@ const Login = () => {
         onSubmit={handleSubmit(onSubmitHandler)}
         className="flex flex-col gap-2 w-96 border shadow-md px-4 py-4 pb-10 items-center rounded-md"
       >
-        <h1 className="font-bold text-2xl">Login Form</h1>
+        <h1 className="font-bold text-2xl">Register Form</h1>
+        <InputField
+          register={register}
+          registerName="username"
+          type="text"
+          placeholder="Your username"
+        />
         <InputField
           register={register}
           registerName="email"
@@ -65,11 +54,11 @@ const Login = () => {
           type="password"
           placeholder="Your password"
         />
-        <Button buttonName={"Login"} />
-        <Link to="/register">Register</Link>
+        <Button buttonName={"Register"} />
+        <Link to="/login">login</Link>
       </form>
     </div>
   );
 };
 
-export default Login;
+export default Register;

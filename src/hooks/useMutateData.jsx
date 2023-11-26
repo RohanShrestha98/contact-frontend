@@ -33,3 +33,7 @@ export const useMutate = (
 };
 
 export const useAuthMutation = () => useMutate(["auth"], "api/users/login");
+export const useAuthRegisterMutation = () =>
+  useMutate(["register"], "api/users/register");
+export const useCreateContactMutation = () =>
+  useMutate(["contact"], "api/contacts");
