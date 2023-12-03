@@ -4,15 +4,18 @@ import Login from "./auth/login";
 import Home from "./pages/Home";
 import RequireAuth from "./auth/requireAuth";
 import PersistLogin from "./auth/persistLogin";
-import Register from "./auth/register";
 import CreateContact from "./pages/CreateContact";
+import AuthLayout from "./layouts/AuthLayout";
+import SignUp from "./auth/signup";
 
 function App() {
   return (
     <div>
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route element={<AuthLayout />}>
+          <Route path="/login" element={<Login />} />
+          <Route path="/sign-up" element={<SignUp />} />
+        </Route>
         <Route element={<PersistLogin />}>
           <Route element={<RequireAuth />}>
             <Route path="/" element={<Home />} />

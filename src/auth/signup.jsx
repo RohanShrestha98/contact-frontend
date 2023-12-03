@@ -8,7 +8,7 @@ import Button from "../components/Button";
 import InputField from "../components/InputField";
 import logo from "../assets/logo.svg";
 
-const Login = () => {
+const SignUp = () => {
   const { setAuth } = useAuthContext();
   const authMutation = useAuthMutation();
   const navigate = useNavigate();
@@ -47,59 +47,80 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen sm:w-full">
+    <div className="flex justify-center items-center h-screen sm:w-full ">
       <form
         onSubmit={handleSubmit(onSubmitHandler)}
         className="flex flex-col gap-2 w-[460px] sm:w-full sm:shadow-none shadow-md sm:px-6 py-10 px-14 items-center rounded-3xl "
       >
         <img src={logo} alt="" />
-        <h1 className=" font-bold text-2xl pt-4 text-center">
-          Welcome to <span className="text-blue-500"> HIMS- WHO</span>{" "}
-        </h1>
+        <h1 className=" font-bold text-2xl pt-4 text-center">SignUp</h1>
         <p className="text-gray-500 text-xs mb-4 text-center">
-          Fill the credentials below to log into HIMS- WHO
+          Enter your credentials to login to your account.
         </p>
-        <InputField
-          register={register}
-          registerName="email"
-          type="email"
-          placeholder="Email"
-        />
-        <InputField
-          className={"mt-1"}
-          register={register}
-          registerName="password"
-          type="password"
-          placeholder="Password"
-        />
-        <div className="w-full">
-          <div className="flex justify-between items-center mt-8">
-            <div className="flex items-center gap-1">
-              <input type="checkbox" />
-              <p className="text-[#343434] text-xs font-medium">
-                Keep me logged in
-              </p>
-            </div>
-            <p className="text-red-500 text-xs font-semibold cursor-pointer">
-              Forgot your password?
-            </p>
-          </div>
+        <div className="w-full flex flex-col gap-2 h-[260px] no-scrollbar overflow-auto">
+          <InputField
+            className={"mt-1"}
+            register={register}
+            registerName="firstName"
+            type="text"
+            placeholder="First Name"
+          />
+          <InputField
+            register={register}
+            registerName="lastName"
+            type="text"
+            placeholder="Last Name"
+          />
+          <InputField
+            className={"mt-1"}
+            register={register}
+            registerName="email"
+            type="email"
+            placeholder="Email"
+          />
+          <InputField
+            register={register}
+            registerName="contactNumber"
+            type="text"
+            placeholder="Contact Number"
+          />
+          <InputField
+            className={"mt-1"}
+            register={register}
+            registerName="profession"
+            type="text"
+            placeholder="Profession"
+          />
+          <InputField
+            className={"mt-1"}
+            register={register}
+            registerName="password"
+            type="password"
+            placeholder="Password"
+          />
+          <InputField
+            className={"mt-1"}
+            register={register}
+            registerName=" confirmPassword"
+            type="password"
+            placeholder=" Confirm Password"
+          />
         </div>
         <Button
-          buttonName={"Login"}
+          buttonName={"Sign up"}
           className={"rounded-2xl mt-2 hover:opacity-70"}
         />
         <div className="flex items-center gap-2 mt-1">
           <p className="font-semibold text-gray-500 text-xs">
-            Don’t have an account?{" "}
+            Already have an account?{" "}
             <span
               onClick={() => {
-                navigate("/sign-up");
+                navigate("/login");
               }}
               className="text-[#265CC0] underline cursor-pointer"
             >
               {" "}
-              Sign up
+              Login
             </span>
           </p>
         </div>
@@ -108,4 +129,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;
